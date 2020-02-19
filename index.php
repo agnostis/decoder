@@ -9,14 +9,14 @@
 </head>
 <body>
 <?php
-$two = array(' ', 'а', 'б','в','г');
-$three = array(' ', 'д', 'е','ж','з');
-$four = array(' ', 'и', 'й','к','л');
-$five = array(' ', 'м', 'н','о','п');
-$six = array(' ', 'р', 'с','т','у');
-$seven = array(' ', 'ф', 'х','ц','ч');
-$eight = array(' ', 'ш', 'щ','ъ','ы');
-$nine = array(' ', 'ь', 'э','ю','я');
+$two = array(' ', 'а', 'б', 'в', 'г');
+$three = array(' ', 'д', 'е', 'ж', 'з');
+$four = array(' ', 'и', 'й', 'к', 'л');
+$five = array(' ', 'м', 'н', 'о', 'п');
+$six = array(' ', 'р', 'с', 'т', 'у');
+$seven = array(' ', 'ф', 'х', 'ц', 'ч');
+$eight = array(' ', 'ш', 'щ', 'ъ', 'ы');
+$nine = array(' ', 'ь', 'э', 'ю', 'я');
 ?>
 <form method='post'>
     <label>
@@ -30,29 +30,39 @@ $wordsArray = explode(' ', $_POST['text']);
 $lengthArray = sizeof($wordsArray);
 $decodeString = array();
 for ($i = 0; $i < $lengthArray; $i++){
-    switch (substr($wordsArray[$i],0,1)){
+    switch (substr($wordsArray[$i], 0, 1)){
         case 2: array_push($decodeString,$two[strlen($wordsArray[$i])]);
-        break;
+            break;
         case 3: array_push($decodeString,$three[strlen($wordsArray[$i])]);
-        break;
+            break;
         case 4: array_push($decodeString,$four[strlen($wordsArray[$i])]);
-        break;
+            break;
         case 5: array_push($decodeString,$five[strlen($wordsArray[$i])]);
-        break;
+            break;
         case 6: array_push($decodeString,$six[strlen($wordsArray[$i])]);
-        break;
+            break;
         case 7: array_push($decodeString,$seven[strlen($wordsArray[$i])]);
-        break;
+            break;
         case 8: array_push($decodeString,$eight[strlen($wordsArray[$i])]);
-        break;
+            break;
         case 9: array_push($decodeString,$nine[strlen($wordsArray[$i])]);
-        break;
+            break;
     }
 }
-for ($i = 0; $i < count($decodeString); $i++){
-    echo $decodeString[$i];
+foreach ($decodeString as $key=>$value){
+    if ($key == 0){
+        echo mb_ucfirst($value);
+        continue;
+    }
+    echo $value;
 }
-?>
 
+//метод для перевода русских букв в верхний регистр
+function mb_ucfirst($text)
+{
+    return mb_strtoupper(mb_substr($text, 0, 1)) . mb_substr($text, 1);
+}
+
+?>
 </body>
 </html>
